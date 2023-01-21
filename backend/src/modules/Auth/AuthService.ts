@@ -1,6 +1,6 @@
 import { Users } from './entities/usersEntity';
 import { SignUpBodyDto } from './dto/UserBodyDto';
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 class AuthService {
@@ -27,7 +27,7 @@ class AuthService {
   async create(data: SignUpBodyDto) {
     return await Users.create({
       ...data,
-      password: await bcrypt.hash(data.password, 10),
+      password: await bcryptjs.hash(data.password, 10),
     });
   }
 }

@@ -10,7 +10,7 @@ import {
   Table,
   UpdatedAt,
 } from 'sequelize-typescript';
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 import { UserHistory } from '../../UserHistory/entities/UserHistoryEntity';
 
 @Table({ underscored: true })
@@ -55,6 +55,6 @@ export class Users extends Model {
   user_history: UserHistory[];
 
   async isValidPassword(password: string) {
-    return await bcrypt.compare(password, this.password);
+    return await bcryptjs.compare(password, this.password);
   }
 }
