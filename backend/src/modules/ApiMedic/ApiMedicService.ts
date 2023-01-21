@@ -6,6 +6,7 @@ import { SymptomDto } from './dto/ApiMedicDto';
 import { SignUpBodyDto } from '../Auth/dto/UserBodyDto';
 import UserHistoryService from '../UserHistory/UserHistoryService';
 import { UserHistoryDto } from '../UserHistory/dto/UserHistoryDto';
+import { NotFoundError } from 'routing-controllers';
 
 const APIMEDIC_TOKEN = 'APIMEDIC_TOKEN';
 
@@ -85,8 +86,7 @@ class ApiMedicService {
   async getDiagnosis(
     symptoms: number[],
     user: SignUpBodyDto
-  ): Promise<UserHistoryDto[]> {
-    console.log(symptoms, user.gender, user.dateOfBirth);
+  ): Promise<UserHistoryDto[] | { message: string }> {
     const symptomsName = await this.getSymptomsName(symptoms);
     const { data } = await this.restClientHealth.get(`/diagnosis`, {
       params: {
@@ -95,6 +95,11 @@ class ApiMedicService {
         year_of_birth: user.dateOfBirth.slice(0, 4),
       },
     });
+    if (data.lenght === 0) {
+      throw new NotFoundError(
+        "There's not diagnosis for your symptoms please consult a health "
+      );
+    }
 
     return await this.userHistoryService.saveDiagnosis(
       user.id,
