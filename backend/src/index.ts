@@ -19,9 +19,10 @@ app.use(morgan('dev'));
 useExpressServer(app, {
   authorizationChecker: async (action: Action) => {
     try {
+      const authService = new AuthService();
       const token = action.request.headers['authorization'].split(' ')[1];
       const payload = jwt.verify(token, process.env.SECRET_JWT);
-      const user = await AuthService.findById(payload.id);
+      const user = await authService.findById(payload.id);
 
       if (!user) return false;
       action.request.user = user.get({ plain: true });
