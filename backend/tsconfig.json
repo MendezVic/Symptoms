@@ -1,0 +1,26 @@
+{
+
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es2017",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    "allowSyntheticDefaultImports": true
+  },
+  "lib": ["es2017"],
+  "include": [
+    "src/**/*"
+  ],
+  "typeRoots": [
+    "node_modules/@types"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+
+}
