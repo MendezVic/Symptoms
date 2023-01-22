@@ -27,7 +27,8 @@ useExpressServer(app, {
       if (!user) return false;
       action.request.user = user.get({ plain: true });
       return true;
-    } catch {
+    } catch (e) {
+      console.log(e);
       return false;
     }
   },

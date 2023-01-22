@@ -14,7 +14,7 @@ class UserHistoryService {
     userDiagnosis.confirmed = 1;
     await userDiagnosis.save();
 
-    return userDiagnosis;
+    return userDiagnosis.dataValues;
   }
   async saveDiagnosis(
     user_id: number,
